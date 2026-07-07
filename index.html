@@ -127,7 +127,6 @@
     width:100%; height:100%;
     object-fit:cover;
     z-index:0;
-    display:none;
   }
 
   .hero-overlay{
@@ -309,6 +308,7 @@
     position:absolute; inset:0;
     background:linear-gradient(160deg, #201d18, #0e0d0c 70%);
     transition:transform .6s ease;
+    display:flex; align-items:center; justify-content:center;
   }
   .work-item:hover .work-thumb{ transform:scale(1.05); }
   .play-btn{
@@ -317,6 +317,7 @@
     border-radius:50%;
     display:flex; align-items:center; justify-content:center;
     opacity:0.7; transition:opacity .3s ease;
+    z-index:3;
   }
   .work-item:hover .play-btn{ opacity:1; }
   .play-btn::after{
@@ -442,6 +443,12 @@
   }
 
   ::selection{ background:var(--tally); color:var(--bg); }
+
+  .placeholder-text {
+    color: var(--paper-dim);
+    font-style: italic;
+    opacity: 0.7;
+  }
 </style>
 </head>
 <body>
@@ -468,6 +475,7 @@
 </header>
 
 <section class="hero" id="top">
+  <video class="hero-bg-video" autoplay muted loop playsinline src="hero_bg.mp4"></video>
   <div class="hero-overlay"></div>
   <div class="hero-frame" data-tc="00:00:00:00"></div>
   <div class="hero-eyebrow mono i18n" data-ru="ОПЕРАТОР-ПОСТАНОВЩИК — КЛИПЫ / РЕКЛАМА / ДОКУМЕНТАЛИСТИКА" data-en="DIRECTOR OF PHOTOGRAPHY — MUSIC VIDEOS / COMMERCIALS / DOCUMENTARIES">ОПЕРАТОР-ПОСТАНОВЩИК — КЛИПЫ / РЕКЛАМА / ДОКУМЕНТАЛИСТИКА</div>
@@ -487,8 +495,7 @@
           <span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span>
         </div>
       </div>
-      <div class="portrait fade-up" style="padding:0;overflow:hidden;margin-top:64px;background:linear-gradient(135deg, #1a1814 0%, #0e0d0c 100%);">
-      </div>
+      <div class="portrait fade-up" style="padding:0;overflow:hidden;margin-top:64px;background:linear-gradient(135deg, #1a1814 0%, #0e0d0c 100%);"></div>
       <div class="about-text fade-up">
         <p class="i18n-html" data-ru="<strong>Victor Chizh</strong> — за 10 лет в индустрии я прошёл путь от телевизионного продакшена и рекламы до независимого кинематографа. Специализируюсь на операторской работе, режиссуре и монтаже." data-en="<strong>Victor Chizh</strong> — Over 10 years in the industry, I've progressed from television and advertising production to independent cinema. I specialize in cinematography, directing, and editing."><strong>Victor Chizh</strong> — за 10 лет в индустрии я прошёл путь от телевизионного продакшена и рекламы до независимого кинематографа. Специализируюсь на операторской работе, режиссуре и монтаже.</p>
         <p class="i18n" data-ru="Для меня хорошее видео — это не просто красивая картинка. Это атмосфера, ритм и эмоции, которые зритель чувствует на подсознательном уровне. Каждый проект — это возможность рассказать уникальную историю." data-en="For me, good video is not just a beautiful picture. It's atmosphere, rhythm, and emotions that the viewer feels on a subconscious level. Every project is an opportunity to tell a unique story.">Для меня хорошее видео — это не просто красивая картинка. Это атмосфера, ритм и эмоции, которые зритель чувствует на подсознательном уровне. Каждый проект — это возможность рассказать уникальную историю.</p>
@@ -586,7 +593,7 @@
     <h2 class="contact-big i18n-html" data-ru="Есть проект?<br>Напишите — <a href='https://t.me/chizhv' target='_blank' rel='noopener'>t.me/chizhv</a>" data-en="Got a project?<br>Get in touch — <a href='https://t.me/chizhv' target='_blank' rel='noopener'>t.me/chizhv</a>">Есть проект?<br>Напишите — <a href="https://t.me/chizhv" target="_blank" rel="noopener">t.me/chizhv</a></h2>
     <div class="contact-row">
       <div><span class="i18n" data-ru="ДОЛЖНОСТЬ" data-en="POSITION">ДОЛЖНОСТЬ</span><br><a href="#" class="i18n" data-ru="DOP / Filmmaker / Edit" data-en="DOP / Filmmaker / Edit">DOP / Filmmaker / Edit</a></div>
-      <div><span class="i18n" data-ru="SOCIAL" data-en="SOCIAL">SOCIAL</span><br><a href="https://instagram.com">Instagram</a><a href="https://vimeo.com">Vimeo</a></div>
+      <div><span class="i18n" data-ru="SOCIAL" data-en="SOCIAL">SOCIAL</span><br><a href="https://instagram.com" target="_blank">Instagram</a><a href="https://vimeo.com" target="_blank">Vimeo</a></div>
       <div><span class="i18n" data-ru="ЛОКАЦИЯ" data-en="LOCATION">ЛОКАЦИЯ</span><br><a href="#" class="i18n" data-ru="BELARUS / Europe" data-en="BELARUS / Europe">BELARUS / Europe</a></div>
       <div><span class="i18n" data-ru="ДОСТУПНОСТЬ" data-en="AVAILABILITY">ДОСТУПНОСТЬ</span><br><a href="#" class="i18n" data-ru="Съёмки на выезд" data-en="Available for travel">Съёмки на выезд</a></div>
     </div>
