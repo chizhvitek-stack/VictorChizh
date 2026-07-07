@@ -119,7 +119,6 @@
     padding:0 40px 70px;
     position:relative;
     overflow:hidden;
-    background: linear-gradient(135deg, #1a1814 0%, #0e0d0c 100%);
   }
 
   .hero-bg-video{
@@ -252,6 +251,7 @@
     -webkit-mask-image: radial-gradient(ellipse 85% 85% at center, black 58%, transparent 100%);
     mask-image: radial-gradient(ellipse 85% 85% at center, black 58%, transparent 100%);
     filter: drop-shadow(0 0 40px rgba(0,0,0,0.35));
+    overflow:hidden;
   }
   .portrait .mono{ font-size:11px; color:var(--paper-dim); }
 
@@ -308,7 +308,8 @@
     position:absolute; inset:0;
     background:linear-gradient(160deg, #201d18, #0e0d0c 70%);
     transition:transform .6s ease;
-    display:flex; align-items:center; justify-content:center;
+    background-size:cover;
+    background-position:center;
   }
   .work-item:hover .work-thumb{ transform:scale(1.05); }
   .play-btn{
@@ -331,6 +332,7 @@
     padding:18px 22px;
     display:flex; justify-content:space-between; align-items:flex-end;
     background:linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+    z-index:2;
   }
   .work-meta h3{ font-size:19px; }
   .work-meta .mono{ font-size:11px; color:var(--paper-dim); }
@@ -371,10 +373,12 @@
     font-size:18px;
     letter-spacing:0.06em;
     color:var(--paper-dim);
-    transition:color .3s ease, opacity .3s ease;
+    transition:color .3s ease, opacity .3s ease, filter .3s ease;
     opacity:0.85;
   }
   .client:hover{ color:var(--paper); opacity:1; }
+  .client img{ filter:opacity(0.75); transition:filter .3s ease; }
+  .client:hover img{ filter:opacity(1); }
 
   /* ---------- ARCHIVE (vertical strip) ---------- */
   .archive-carousel{
@@ -404,12 +408,17 @@
     mask-image: radial-gradient(ellipse 88% 92% at center, black 62%, transparent 100%);
     filter: drop-shadow(0 0 30px rgba(0,0,0,0.4));
     transition: transform .4s ease;
-    display:flex; align-items:flex-end; justify-content:flex-start;
-    padding:16px;
+    overflow:hidden;
   }
   .archive-item:hover{ transform:scale(1.04); }
+  .archive-item video {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
   .archive-item .mono{
-    font-size:10px; color:var(--paper-dim); z-index:2;
+    position:absolute; bottom:20px; left:20px; font-size:10px; color:var(--paper-dim); z-index:2;
   }
   @media (prefers-reduced-motion: reduce){
     .archive-track{ animation:none; }
@@ -443,12 +452,6 @@
   }
 
   ::selection{ background:var(--tally); color:var(--bg); }
-
-  .placeholder-text {
-    color: var(--paper-dim);
-    font-style: italic;
-    opacity: 0.7;
-  }
 </style>
 </head>
 <body>
@@ -476,7 +479,7 @@
 
 <section class="hero" id="top">
   <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata">
-    <source src="https://raw.githubusercontent.com/chizhvitek-stack/VictorChizh/gh-pages/hero_bg.mp4" type="video/mp4">
+    <source src="hero_bg.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-frame" data-tc="00:00:00:00"></div>
@@ -497,7 +500,9 @@
           <span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span><span class="i18n" data-ru="обо мне" data-en="about me">about me</span>
         </div>
       </div>
-      <div class="portrait fade-up" style="padding:0;overflow:hidden;margin-top:64px;background:linear-gradient(135deg, #1a1814 0%, #0e0d0c 100%);"></div>
+      <div class="portrait fade-up" style="padding:0;overflow:hidden;margin-top:64px;">
+        <video src="portrait.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      </div>
       <div class="about-text fade-up">
         <p class="i18n-html" data-ru="<strong>Victor Chizh</strong> — за 10 лет в индустрии я прошёл путь от телевизионного продакшена и рекламы до независимого кинематографа. Специализируюсь на операторской работе, режиссуре и монтаже." data-en="<strong>Victor Chizh</strong> — Over 10 years in the industry, I've progressed from television and advertising production to independent cinema. I specialize in cinematography, directing, and editing."><strong>Victor Chizh</strong> — за 10 лет в индустрии я прошёл путь от телевизионного продакшена и рекламы до независимого кинематографа. Специализируюсь на операторской работе, режиссуре и монтаже.</p>
         <p class="i18n" data-ru="Для меня хорошее видео — это не просто красивая картинка. Это атмосфера, ритм и эмоции, которые зритель чувствует на подсознательном уровне. Каждый проект — это возможность рассказать уникальную историю." data-en="For me, good video is not just a beautiful picture. It's atmosphere, rhythm, and emotions that the viewer feels on a subconscious level. Every project is an opportunity to tell a unique story.">Для меня хорошее видео — это не просто красивая картинка. Это атмосфера, ритм и эмоции, которые зритель чувствует на подсознательном уровне. Каждый проект — это возможность рассказать уникальную историю.</p>
@@ -521,23 +526,39 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg>
       </div>
       <div class="work-grid" id="work-track">
+        <a href="https://www.instagram.com/p/DVRc_dojHl7/" target="_blank" rel="noopener" class="work-item fade-up" style="display:block;">
+          <div class="work-thumb" style="background-image:url('concert_thumb.jpg');"></div>
+          <div class="work-meta"><h3 class="i18n" data-ru="Касмiчны перформанс «Нябесныя бегi»" data-en="Cosmic Performance">Касмiчны перформанс</h3><span class="mono">2025 / MUSIC</span></div>
+        </a>
         <a href="https://www.youtube.com/watch?v=72-4MB8yWwM" target="_blank" rel="noopener" class="work-item fade-up" style="display:block;">
-          <div class="work-thumb" style="background-image:url('https://img.youtube.com/vi/72-4MB8yWwM/maxresdefault.jpg');background-size:cover;background-position:center;"></div>
+          <div class="work-thumb" style="background-image:url('https://img.youtube.com/vi/72-4MB8yWwM/maxresdefault.jpg');"></div>
           <div class="play-btn"></div>
           <div class="work-meta"><h3 class="i18n" data-ru="DJ SET" data-en="DJ SET">DJ SET</h3><span class="mono">2025 / DOCUMENTARY</span></div>
         </a>
         <a href="https://www.youtube.com/watch?v=RS8uJx9xvUk" target="_blank" rel="noopener" class="work-item fade-up" style="display:block;">
-          <div class="work-thumb" style="background-image:url('https://img.youtube.com/vi/RS8uJx9xvUk/maxresdefault.jpg');background-size:cover;background-position:center;"></div>
+          <div class="work-thumb" style="background-image:url('https://img.youtube.com/vi/RS8uJx9xvUk/maxresdefault.jpg');"></div>
           <div class="play-btn"></div>
           <div class="work-meta"><h3 class="i18n" data-ru="Большой концерт" data-en="Big Concert">Большой концерт</h3><span class="mono">2026 / SONORUS</span></div>
         </a>
+        <a href="https://www.instagram.com/p/CLMyEAzAzH_h16Z-LOKzgpk2eq44en7L628pBA0/" target="_blank" rel="noopener" class="work-item fade-up" style="display:block;">
+          <div class="work-thumb" style="background-image:url('barbershop_thumb.jpg');"></div>
+          <div class="play-btn"></div>
+          <div class="work-meta"><h3 class="i18n" data-ru="Barbershop" data-en="Barbershop">Barbershop</h3><span class="mono">2022 / CREATIVE</span></div>
+        </a>
+        <div class="work-item fade-up">
+          <div class="work-thumb" style="overflow:hidden;cursor:pointer;" onclick="const v=this.querySelector('video'); v.play(); this.querySelector('.play-btn').style.display='none';">
+            <video src="work_clip_06.mp4" poster="nt_technology_poster.jpg" muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+            <div class="play-btn"></div>
+          </div>
+          <div class="work-meta"><h3 class="i18n" data-ru="NT Technology" data-en="NT Technology">NT Technology</h3><span class="mono">2022 / COMMERCIAL</span></div>
+        </div>
         <a href="https://www.youtube.com/watch?v=h5JmEkrFnKw" target="_blank" rel="noopener" class="work-item fade-up" style="display:block;">
-          <div class="work-thumb" style="background-image:url('https://img.youtube.com/vi/h5JmEkrFnKw/maxresdefault.jpg');background-size:cover;background-position:center;"></div>
+          <div class="work-thumb" style="background-image:url('budslau_thumb.jpg');"></div>
           <div class="play-btn"></div>
           <div class="work-meta"><h3 class="i18n" data-ru="Будслаў" data-en="Budslau">Будслаў</h3><span class="mono">2024 / ARCHIVE FILM</span></div>
         </a>
         <a href="https://www.youtube.com/watch?v=8QtU-HxDdyI" target="_blank" rel="noopener" class="work-item fade-up" style="display:block;">
-          <div class="work-thumb" style="background-image:url('https://img.youtube.com/vi/8QtU-HxDdyI/maxresdefault.jpg');background-size:cover;background-position:center;"></div>
+          <div class="work-thumb" style="background-image:url('https://img.youtube.com/vi/8QtU-HxDdyI/maxresdefault.jpg');"></div>
           <div class="play-btn"></div>
           <div class="work-meta"><h3 class="i18n" data-ru="Стихотворение" data-en="Poem">Стихотворение</h3><span class="mono">2024 / CREATIVE</span></div>
         </a>
@@ -554,37 +575,49 @@
     <div class="section-tc mono" style="margin-bottom:30px; text-align:right;">00:09:00:00 — CLIENTS</div>
   </div>
   <div class="client-strip fade-up">
-    <div class="client">Lumenem</div>
-    <div class="client">Sonorus</div>
-    <div class="client">Palac</div>
-    <div class="client">Samaryanina</div>
-    <div class="client">Stage Lab</div>
-    <div class="client">Sun Whale</div>
-    <div class="client">NT Technology</div>
+    <div class="client"><img src="lumenem_logo.png" alt="Lumenem" style="height:22px;width:auto;"></div>
+    <div class="client"><img src="sonorus_logo.png" alt="Sonorus" style="height:28px;width:auto;"></div>
+    <div class="client"><img src="palac_logo.png" alt="Palac" style="height:34px;width:auto;"></div>
+    <div class="client"><img src="samaryanina_logo.png" alt="Samaryanina" style="height:56px;width:auto;"></div>
+    <div class="client"><img src="stagelab_logo.png" alt="Stage Lab Production" style="height:44px;width:auto;"></div>
+    <div class="client"><img src="sunwhale_logo.png" alt="Sun Whale Ecohotel" style="height:52px;width:auto;"></div>
+    <div class="client"><img src="nt_logo.png" alt="NT" style="height:40px;width:auto;"></div>
   </div>
 </section>
 
 <section id="archive">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="i18n" data-ru="Архив / портфолио" data-en="Archive / Portfolio">Архив / портфолио</h2>
-      <div class="section-tc mono">00:12:00:00 — MORE WORKS</div>
+      <h2 class="i18n" data-ru="Архив / вертикальные видео" data-en="Archive / Vertical Videos">Архив / вертикальные видео</h2>
+      <div class="section-tc mono">00:12:00:00 — VERTICAL</div>
     </div>
   </div>
   <div class="archive-carousel fade-up">
     <div class="archive-track">
-      <div class="archive-item"><span class="mono">Project 1</span></div>
-      <div class="archive-item"><span class="mono">Project 2</span></div>
-      <div class="archive-item"><span class="mono">Project 3</span></div>
-      <div class="archive-item"><span class="mono">Project 4</span></div>
-      <div class="archive-item"><span class="mono">Project 5</span></div>
-      <div class="archive-item"><span class="mono">Project 6</span></div>
-      <div class="archive-item"><span class="mono">Project 7</span></div>
-      <div class="archive-item"><span class="mono">Project 8</span></div>
-      <div class="archive-item"><span class="mono">Project 1</span></div>
-      <div class="archive-item"><span class="mono">Project 2</span></div>
-      <div class="archive-item"><span class="mono">Project 3</span></div>
-      <div class="archive-item"><span class="mono">Project 4</span></div>
+      <div class="archive-item"><video src="archive_clip_12.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_01.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_02.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_03.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_04.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_05.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_06.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_09.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_08.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_07.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_10.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_11.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_12.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_01.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_02.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_03.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_04.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_05.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_06.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_09.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_08.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_07.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_10.mp4" autoplay muted loop playsinline></video></div>
+      <div class="archive-item"><video src="archive_clip_11.mp4" autoplay muted loop playsinline></video></div>
     </div>
   </div>
 </section>
